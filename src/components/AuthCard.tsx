@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import clsx from "clsx";
 import { login, signup } from "@/lib/auth/login";
+import { GoogleAuthButton } from "./GoogleLoginButton";
 
 type props = {
   method: string;
@@ -50,12 +51,14 @@ export function AuthCard({ method }: props) {
             <div className="grid gap-2">
               <div className="flex items-center">
                 <Label htmlFor="password">Password</Label>
-                <a
-                  href="#"
-                  className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                >
-                  Forgot your password?
-                </a>
+                {method === "login" && (
+                  <a
+                    href="#"
+                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                  >
+                    Forgot your password?
+                  </a>
+                )}
               </div>
               <Input id="password" type="password" name="password" required />
             </div>
@@ -71,9 +74,7 @@ export function AuthCard({ method }: props) {
         </form>
       </CardContent>
       <CardFooter className="flex-col gap-2">
-        <Button variant="outline" className="w-full">
-          Login with Google
-        </Button>
+        <GoogleAuthButton />
       </CardFooter>
     </Card>
   );

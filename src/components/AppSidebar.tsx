@@ -1,4 +1,4 @@
-import { Home, Notebook, UserCog } from "lucide-react";
+import { Home, Notebook, UserCog, Brain } from "lucide-react";
 
 import {
   Sidebar,
@@ -15,18 +15,23 @@ import {
 const items = [
   {
     title: "Home",
-    url: "#",
+    url: "/",
     icon: Home,
   },
   {
+    title: "Study Preferences",
+    url: "/dashboard/prefs",
+    icon: Brain,
+  },
+  {
     title: "Classes",
-    url: "#",
+    url: "/dashboard/classes",
     icon: Notebook,
   },
 
   {
     title: "Settings",
-    url: "#",
+    url: "/dashboard/settings",
     icon: UserCog,
   },
 ];

@@ -19,18 +19,47 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import { useEffect, useState } from "react";
+import { createClient } from "@/lib/supabase/client";
 
-const links = [
-  {
-    name: "About",
-    href: "/about",
-  },
-  {
-    name: "Login",
-    href: "/login",
-  },
-];
+type ButtonVariant =
+  | "link"
+  | "secondary"
+  | "default"
+  | "destructive"
+  | "outline"
+  | "ghost";
+// Guarenteed that ButtonType is one of these
+
+interface NavLink {
+  name: string;
+  href: string;
+  buttonType: ButtonVariant;
+}
+
 export function NavigationBar() {
+  const [isUser, setIsUser] = useState(false);
+  const supabase = createClient();
+
+  useEffect(() => {
+    const getUser = async () => {
+      const { data } = await supabase.auth.getUser();
+      if (data.user) {
+        setIsUser(true);
+      }
+    };
+    getUser();
+  }, [supabase]);
+
+  const links: NavLink[] = [
+    { name: "About", href: "/about", buttonType: "link" },
+    {
+      name: isUser ? "Dashboard" : "Login",
+      href: isUser ? "/dashboard" : "/login",
+      buttonType: isUser ? "secondary" : "link",
+    },
+  ];
+
   const pathname = usePathname();
   return (
     <div className={`${montserrat.className} min-h-16 border-b`}>
@@ -51,7 +80,7 @@ export function NavigationBar() {
             return (
               <Button
                 key={link.name}
-                variant="link"
+                variant={link.buttonType}
                 className={clsx("mx-10", {
                   "text-blue-400": pathname === link.href,
                 })}

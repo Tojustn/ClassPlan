@@ -1,3 +1,4 @@
+"use client";
 import { Home, Notebook, UserCog, Brain } from "lucide-react";
 
 import {
@@ -11,16 +12,18 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
+import { usePathname } from "next/navigation";
+
 // Menu items.
 const items = [
   {
     title: "Home",
-    url: "/",
+    url: "/dashboard",
     icon: Home,
   },
   {
     title: "Study Preferences",
-    url: "/dashboard/prefs",
+    url: "/dashboard/preferences",
     icon: Brain,
   },
   {
@@ -38,8 +41,9 @@ const items = [
 
 import Image from "next/image";
 import Link from "next/link";
-
+import clsx from "clsx";
 export function AppSidebar() {
+  const pathname = usePathname();
   return (
     <Sidebar>
       <SidebarContent>
@@ -61,7 +65,12 @@ export function AppSidebar() {
           <SidebarGroupContent className="my-5">
             <SidebarMenu>
               {items.map((item) => (
-                <SidebarMenuItem key={item.title} className="my-1">
+                <SidebarMenuItem
+                  key={item.title}
+                  className={clsx("my-1", {
+                    "text-blue-400": pathname === item.url,
+                  })}
+                >
                   <SidebarMenuButton asChild>
                     <a href={item.url}>
                       <item.icon />

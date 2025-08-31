@@ -5,6 +5,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import { useState, useEffect } from "react";
 import AddEventCard from "./AddEventCard";
 import { get_events } from "@/lib/db/calendar/calendar_queries";
+import { delete_calendar_event } from "@/lib/db/calendar/calendar_queries";
 
 export default function Calendar({ className }: { className?: string }) {
   const [isAddEvent, setIsAddEvent] = useState<boolean>(false);
@@ -27,6 +28,12 @@ export default function Calendar({ className }: { className?: string }) {
     setIsAddEvent((prev) => !prev);
   };
 
+  const handleEventClick = (info: any) => {
+    if (confirm(`Do you want to delete the event '${info.event.title}'?`)) {
+      delete_calendar_event(info.event.id);
+      info.event.remove(); // removes from UI immediately
+    }
+  };
   return (
     <div className={className}>
       {isAddEvent ? (
@@ -43,6 +50,7 @@ export default function Calendar({ className }: { className?: string }) {
           displayEventTime={true}
           displayEventEnd={true}
           events={events}
+          eventClick={(info) => handleEventClick(info)}
           customButtons={{
             addEvent: {
               text: "Add Event",

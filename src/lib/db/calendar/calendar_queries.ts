@@ -183,3 +183,29 @@ export const fetchCurrentAndFutureEvents = async () => {
     redirect(`/error?message=${encodeURIComponent(String(error))}`);
   }
 };
+
+export const delete_calendar_event = async (event_id: string) => {
+  try {
+    const supabase = await createClient();
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser();
+
+    if (authError || !user) {
+      throw new Error("User not found");
+    }
+
+    const { error } = await supabase
+      .from("calendar_events")
+      .delete()
+      .eq("id", event_id)
+      .eq("user_id", user.id);
+
+    if (error) {
+      throw new Error(`Failed to delete event: ${error.message}`);
+    }
+  } catch (error) {
+    redirect(`/error?message=${encodeURIComponent(String(error))}`);
+  }
+};

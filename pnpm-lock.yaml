@@ -11,6 +11,9 @@ importers:
       '@fullcalendar/daygrid':
         specifier: ^6.1.19
         version: 6.1.19(@fullcalendar/core@6.1.19)
+      '@fullcalendar/react':
+        specifier: ^6.1.19
+        version: 6.1.19(@fullcalendar/core@6.1.19)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@hookform/resolvers':
         specifier: ^5.2.1
         version: 5.2.1(react-hook-form@7.62.0(react@19.1.0))
@@ -205,6 +208,13 @@ packages:
     resolution: {integrity: sha512-IAAfnMICnVWPjpT4zi87i3FEw0xxSza0avqY/HedKEz+l5MTBYvCDPOWDATpzXoLut3aACsjktIyw9thvIcRYQ==}
     peerDependencies:
       '@fullcalendar/core': ~6.1.19
+
+  '@fullcalendar/react@6.1.19':
+    resolution: {integrity: sha512-FP78vnyylaL/btZeHig8LQgfHgfwxLaIG6sKbNkzkPkKEACv11UyyBoTSkaavPsHtXvAkcTED1l7TOunAyPEnA==}
+    peerDependencies:
+      '@fullcalendar/core': ~6.1.19
+      react: ^16.7.0 || ^17 || ^18 || ^19
+      react-dom: ^16.7.0 || ^17 || ^18 || ^19
 
   '@hookform/resolvers@5.2.1':
     resolution: {integrity: sha512-u0+6X58gkjMcxur1wRWokA7XsiiBJ6aK17aPZxhkoYiK5J+HcTx0Vhu9ovXe6H+dVpO6cjrn2FkJTryXEMlryQ==}
@@ -2690,6 +2700,12 @@ snapshots:
   '@fullcalendar/daygrid@6.1.19(@fullcalendar/core@6.1.19)':
     dependencies:
       '@fullcalendar/core': 6.1.19
+
+  '@fullcalendar/react@6.1.19(@fullcalendar/core@6.1.19)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
+    dependencies:
+      '@fullcalendar/core': 6.1.19
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
 
   '@hookform/resolvers@5.2.1(react-hook-form@7.62.0(react@19.1.0))':
     dependencies:

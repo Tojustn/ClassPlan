@@ -1,4 +1,6 @@
 "use server";
+import "server-only";
+
 import { createClient } from "../supabase/server";
 import { redirect } from "next/navigation";
 export default async function fetchUserProfile() {
@@ -53,7 +55,6 @@ export default async function fetchUserProfile() {
     user_data.study_time_per_week = preferences?.study_time_per_week;
     user_data.days_of_the_week = preferences?.days_of_the_week;
 
-    console.log(user_data);
     return user_data;
   } catch (error) {
     redirect(`/error${encodeURIComponent(String(error))}`);

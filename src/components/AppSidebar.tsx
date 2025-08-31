@@ -1,5 +1,5 @@
 "use client";
-import { Home, Notebook, UserCog, Brain } from "lucide-react";
+import { Home, Notebook, UserCog, Brain, Bot } from "lucide-react";
 
 import {
   Sidebar,
@@ -11,8 +11,12 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-
+import { ShineBorder } from "./magicui/shine-border";
+import { Button } from "./ui/button";
 import { usePathname } from "next/navigation";
+import { RainbowButton } from "./magicui/rainbow-button";
+import { generate_study_plan } from "@/lib/ai/generate_study_plan";
+import { useAiLoading } from "@/components/AiLoadingContext";
 
 // Menu items.
 const items = [
@@ -42,8 +46,24 @@ const items = [
 import Image from "next/image";
 import Link from "next/link";
 import clsx from "clsx";
+
 export function AppSidebar() {
   const pathname = usePathname();
+  const { setAiLoading } = useAiLoading();
+
+  const handleGenerateStudyPlan = async () => {
+    try {
+      setAiLoading(true);
+      await generate_study_plan();
+      // Refresh the page to show new events
+      window.location.reload();
+    } catch (error) {
+      console.error("Failed to generate study plan:", error);
+    } finally {
+      setAiLoading(false);
+    }
+  };
+
   return (
     <Sidebar>
       <SidebarContent>
@@ -63,7 +83,7 @@ export function AppSidebar() {
             </Link>
           </SidebarGroupLabel>
           <SidebarGroupContent className="my-5">
-            <SidebarMenu>
+            <SidebarMenu className="flex flex-col gap-2 min-h-full">
               {items.map((item) => (
                 <SidebarMenuItem
                   key={item.title}
@@ -79,6 +99,16 @@ export function AppSidebar() {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
+              <div className="mt-6">
+                <RainbowButton
+                  variant="outline"
+                  className="flex items-center gap-2 w-full"
+                  onClick={handleGenerateStudyPlan}
+                >
+                  <Bot />
+                  Generate Study Blocks
+                </RainbowButton>
+              </div>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

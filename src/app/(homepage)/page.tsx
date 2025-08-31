@@ -2,8 +2,6 @@
 
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { DotPattern } from "@/components/magicui/dot-pattern";
-import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 export default function Home() {

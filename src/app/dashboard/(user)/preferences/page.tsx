@@ -7,8 +7,9 @@ import ReturnButton from "@/components/ReturnButton";
 import { changeUserPreferences } from "@/lib/db/update_user_preferences";
 import AlertComponent from "@/components/AlertComponent";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-export default function PreferencesPage() {
+function PreferencesContent() {
   const searchParams = useSearchParams();
   const errorMessage = searchParams.get("error");
   const daysOfTheWeek = [
@@ -90,5 +91,13 @@ export default function PreferencesPage() {
         </div>
       </form>
     </div>
+  );
+}
+
+export default function PreferencesPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <PreferencesContent />
+    </Suspense>
   );
 }

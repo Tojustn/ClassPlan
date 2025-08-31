@@ -12,13 +12,18 @@ import {
 import { useEffect, useState } from "react";
 import fetch_event_types from "@/lib/db/fetch_event_types";
 
+type EventType = {
+  name: string;
+  color: string;
+};
+
 export default function EventTypeDropdown({
   onChange,
 }: {
   onChange: (value: string) => void;
 }) {
   const [eventType, setEventType] = useState("");
-  const [eventTypes, setEventTypes] = useState<any>([]);
+  const [eventTypes, setEventTypes] = useState<EventType[]>([]);
 
   useEffect(() => {
     const loadEventTypes = async () => {
@@ -47,7 +52,7 @@ export default function EventTypeDropdown({
           value={eventType}
           onValueChange={handleValueChange}
         >
-          {eventTypes.map((type: any) => {
+          {eventTypes.map((type: EventType) => {
             return (
               <DropdownMenuRadioItem
                 key={type.name}

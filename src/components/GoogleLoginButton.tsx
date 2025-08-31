@@ -3,9 +3,13 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
+type GoogleAuthResponse = {
+  credential: string;
+};
+
 declare global {
   interface Window {
-    handleGoogleAuth?: (response: any) => Promise<void>;
+    handleGoogleAuth?: (response: GoogleAuthResponse) => Promise<void>;
   }
 }
 
@@ -14,7 +18,7 @@ export function GoogleAuthButton() {
   const router = useRouter();
 
   useEffect(() => {
-    window.handleGoogleAuth = async function (response: any) {
+    window.handleGoogleAuth = async function (response: GoogleAuthResponse) {
       const { data, error } = await supabase.auth.signInWithIdToken({
         provider: "google",
         token: response.credential,
@@ -38,7 +42,7 @@ export function GoogleAuthButton() {
       document.body.removeChild(script);
       delete window.handleGoogleAuth;
     };
-  }, []);
+  }, [router, supabase.auth]);
 
   return (
     <div>

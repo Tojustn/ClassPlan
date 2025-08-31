@@ -6,16 +6,24 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { User, BookOpen } from "lucide-react";
 import { useEffect, useState } from "react";
-import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import fetchUserProfile from "@/lib/db/fetch_user_profile";
 import GoogleCalendarIntegrationButton from "@/components/GoogleCalendarIntegrateButton";
 import { signOut } from "@/lib/db/user_logout";
 
+type UserData = {
+  email?: string;
+  name?: string;
+  creation?: string;
+  earliest_time?: string;
+  latest_time?: string;
+  study_time_per_week?: number;
+  days_of_the_week?: string[];
+};
+
 export default function SettingsPage() {
-  const [userData, setUserData] = useState<any>(null);
+  const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
-  const supabase = createClient();
   const router = useRouter();
 
   useEffect(() => {

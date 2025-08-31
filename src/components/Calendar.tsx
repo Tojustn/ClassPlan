@@ -7,9 +7,32 @@ import AddEventCard from "./AddEventCard";
 import { get_events } from "@/lib/db/calendar/calendar_queries";
 import { delete_calendar_event } from "@/lib/db/calendar/calendar_queries";
 
+type CalendarEvent = {
+  id: string;
+  title: string;
+  start: Date;
+  end: Date;
+  allDay: boolean;
+  description: string;
+  backgroundColor: string;
+  borderColor: string;
+  textColor: string;
+  extendedProps: {
+    eventType: string;
+  };
+};
+
+type EventClickInfo = {
+  event: {
+    id: string;
+    title: string;
+    remove: () => void;
+  };
+};
+
 export default function Calendar({ className }: { className?: string }) {
   const [isAddEvent, setIsAddEvent] = useState<boolean>(false);
-  const [events, setEvents] = useState<any>([]);
+  const [events, setEvents] = useState<CalendarEvent[]>([]);
 
   useEffect(() => {
     setIsAddEvent(false);
@@ -28,7 +51,7 @@ export default function Calendar({ className }: { className?: string }) {
     setIsAddEvent((prev) => !prev);
   };
 
-  const handleEventClick = (info: any) => {
+  const handleEventClick = (info: EventClickInfo) => {
     if (confirm(`Do you want to delete the event '${info.event.title}'?`)) {
       delete_calendar_event(info.event.id);
       info.event.remove(); // removes from UI immediately

@@ -1,5 +1,3 @@
-import { Italic } from "lucide-react";
-
 export default function AboutPage() {
   return (
     <div className="min-h-full flex flex-col items-start mx-40">
@@ -10,8 +8,8 @@ export default function AboutPage() {
         <br />
         <br />
         With ClassPlan, you can manage your classes, assignments, and schedule
-        in one place. Whether you're juggling multiple courses or just want a
-        smarter way to stay organized, ClassPlan is designed to make student
+        in one place. Whether you&apos;re juggling multiple courses or just want
+        a smarter way to stay organized, ClassPlan is designed to make student
         life easier and more productive.
       </p>
       <p className="italic">Note: This is still in MVP Stage</p>

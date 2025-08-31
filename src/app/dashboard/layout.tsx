@@ -19,7 +19,7 @@ import { AppSidebar } from "@/components/AppSidebar";
 import { useAiLoading } from "@/components/AiLoadingContext";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  const { aiLoading, setAiLoading } = useAiLoading();
+  const { aiLoading } = useAiLoading();
 
   return (
     <div

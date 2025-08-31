@@ -46,7 +46,7 @@ export function SelectDateCalendar({
     if (date && isValidDate(date)) {
       onChange(date.toISOString());
     }
-  }, []);
+  }, [date, onChange]);
 
   const handleDateChange = (newDate: Date | undefined) => {
     if (newDate && isValidDate(newDate)) {

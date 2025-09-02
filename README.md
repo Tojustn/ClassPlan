@@ -1,6 +1,8 @@
 # ClassPlan
 
-A full-stack web application that uses AI to generate personalized study schedules based on your calendar and preferences. Built with **Next.js**, **Supabase**, and using **OpenAI** for the model. ✨
+A full-stack web application that uses AI to generate personalized study schedules based on your calendar and preferences. Built with **Next.js**, **Supabase**, and using **OpenAI** for the model.
+
+https://classplanai.vercel.app/
 
 ## Features
 
